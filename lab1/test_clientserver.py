@@ -29,7 +29,19 @@ class TestEchoService(unittest.TestCase):
         """Test simple call"""
         msg = self.client.call("Hello VS2Lab")
         self.assertEqual(msg, 'Hello VS2Lab*')
-
+    def test_srv_getall(self):  # each test_* function is a test
+        """Test simple GETALL"""
+        msg = self.client.call("GETALL")
+        self.assertEqual(msg, "{'Max': '123456', 'Anna': '987654', 'Überanna': '555000'}*")
+    def test_srv_get_name(self):
+        """Test simple GET"""
+        msg = self.client.call("GET Max")
+        self.assertEqual(msg, '123456*')
+    def test_srv_get_name_not_found(self):
+        """Test simple GET"""
+        msg = self.client.call("GET NotFound")
+        self.assertEqual(msg, 'Name not found*')
+        
     def tearDown(self):
         self.client.close()  # terminate client after each test
 
